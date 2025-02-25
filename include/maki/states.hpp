@@ -17,7 +17,7 @@ namespace maki
 namespace detail::state_confs
 {
     inline constexpr auto init = state_conf{};
-    inline constexpr auto final = state_conf{};
+    inline constexpr auto fin = state_conf{};
 }
 
 /**
@@ -38,9 +38,9 @@ namespace states
     /**
     @brief Dummy state object given to transition hooks for transitions to final state.
     */
-    constexpr auto final = state<IMPLEMENTATION_DETAIL>{};
+    constexpr auto fin = state<IMPLEMENTATION_DETAIL>{};
 #else
-    inline constexpr auto final = state<detail::state_impls::simple_no_context<&detail::state_confs::final>>{};
+    inline constexpr auto fin = state<detail::state_impls::simple_no_context<&detail::state_confs::fin>>{};
 #endif
 }
 

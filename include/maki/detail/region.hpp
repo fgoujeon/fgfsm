@@ -56,7 +56,7 @@ namespace region_detail
     };
 
     template<class StateIdConstantList>
-    struct state_id_to_index<StateIdConstantList, &state_confs::final>
+    struct state_id_to_index<StateIdConstantList, &state_confs::fin>
     {
         static constexpr auto value = final_state_index;
     };
@@ -97,7 +97,7 @@ public:
 
     [[nodiscard]] bool running() const
     {
-        return !is_active_state_id<&state_confs::final>();
+        return !is_active_state_id<&state_confs::fin>();
     }
 
     template<class Machine, class Context, class Event>
@@ -253,7 +253,7 @@ private:
             self.process_event_in_transition
             <
                 ActiveStateIdConstant::value,
-                &state_confs::final,
+                &state_confs::fin,
                 &null
             >(mach, ctx, event);
         }
@@ -445,7 +445,7 @@ private:
 
         if constexpr(!is_internal_transition)
         {
-            if constexpr(!ptr_equals(TargetStateId, &state_confs::final))
+            if constexpr(!ptr_equals(TargetStateId, &state_confs::fin))
             {
                 auto& stt = state_id_to_obj<TargetStateId>();
                 impl_of(stt).call_entry_action
@@ -557,7 +557,7 @@ private:
         auto matches = false;
         with_active_state_id
         <
-            tlu::push_back_t<state_id_constant_list, constant_t<&state_confs::final>>,
+            tlu::push_back_t<state_id_constant_list, constant_t<&state_confs::fin>>,
             is_active_state_id_in_set_2<StateSetPtr>
         >(matches);
         return matches;
@@ -640,9 +640,9 @@ private:
         {
             return states::init;
         }
-        else if constexpr(ptr_equals(StateId, &state_confs::final))
+        else if constexpr(ptr_equals(StateId, &state_confs::fin))
         {
-            return states::final;
+            return states::fin;
         }
         else
         {
